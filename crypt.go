@@ -126,7 +126,7 @@ func newCrypt(method CipherMethod, key, iv []byte, args ...Options) (*Crypt, err
 		return nil, err
 	}
 
-	if !opts.Mode.Has(MODE_CBC, MODE_ECB) {
+	if !opts.Mode.Has(MODE_CBC, MODE_ECB, MODE_CFB) {
 		opts.Padding = PAD_NOPADDING
 	}
 

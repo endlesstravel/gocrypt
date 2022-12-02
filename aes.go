@@ -35,7 +35,7 @@ func aesEncrypt(src, key, iv []byte, block cipher.Block, mode BlockMode, scheme 
 	var header [16]byte
 	var plaintext []byte
 	var offset int
-	if mode.Has(MODE_CBC, MODE_ECB) {
+	if mode.Has(MODE_CBC, MODE_ECB, MODE_CFB) {
 		plaintext, err = Padding(scheme, src, aes.BlockSize)
 		if err != nil {
 			return nil, err
@@ -129,7 +129,7 @@ func aesDecrypt(src, key, iv []byte, block cipher.Block, mode BlockMode, scheme 
 		bm := ciphers.NewECBDecrypter(block)
 		bm.CryptBlocks(plaintext, ciphertext)
 	}
-	if mode.Has(MODE_CBC, MODE_ECB) {
+	if mode.Has(MODE_CBC, MODE_ECB, MODE_CFB) {
 		plaintext, err = UnPadding(scheme, plaintext, aes.BlockSize)
 	}
 	return

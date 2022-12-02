@@ -16,7 +16,7 @@ func TestAES(t *testing.T) {
 	for mode := MODE_CBC; mode <= MODE_ECB; mode++ {
 		for pad := PAD_PKCS7; pad < PAD_NOPADDING; pad++ {
 			p := pad
-			if mode.Not(MODE_CBC, MODE_ECB) {
+			if mode.Not(MODE_CBC, MODE_ECB, MODE_CFB) {
 				p = PAD_NOPADDING
 			}
 			if c, err = newCrypt(METHOD_AES, key, nil, Options{Mode: mode, Padding: pad}); err != nil {
@@ -33,7 +33,7 @@ func TestAES(t *testing.T) {
 			} else {
 				t.Logf("AES OK, mode: %s, padding: %s\n", mode, p)
 			}
-			if mode.Not(MODE_CBC, MODE_ECB) {
+			if mode.Not(MODE_CBC, MODE_ECB, MODE_CFB) {
 				break
 			}
 		}
@@ -53,7 +53,7 @@ func TestDES(t *testing.T) {
 		}
 		for pad := PAD_PKCS7; pad < PAD_NOPADDING; pad++ {
 			p := pad
-			if mode.Not(MODE_CBC, MODE_ECB) {
+			if mode.Not(MODE_CBC, MODE_ECB, MODE_CFB) {
 				p = PAD_NOPADDING
 			}
 			if c, err = newCrypt(METHOD_DES, key, nil, Options{Mode: mode, Padding: pad}); err != nil {
@@ -70,7 +70,7 @@ func TestDES(t *testing.T) {
 			} else {
 				t.Logf("DES OK, mode: %s, padding: %s\n", mode, p)
 			}
-			if mode.Not(MODE_CBC, MODE_ECB) {
+			if mode.Not(MODE_CBC, MODE_ECB, MODE_CFB) {
 				break
 			}
 		}
@@ -90,7 +90,7 @@ func TestDES3(t *testing.T) {
 		}
 		for pad := PAD_PKCS7; pad < PAD_NOPADDING; pad++ {
 			p := pad
-			if mode.Not(MODE_CBC, MODE_ECB) {
+			if mode.Not(MODE_CBC, MODE_ECB, MODE_CFB) {
 				p = PAD_NOPADDING
 			}
 			if c, err = newCrypt(METHOD_DES3, key, nil, Options{Mode: mode, Padding: pad}); err != nil {
@@ -107,7 +107,7 @@ func TestDES3(t *testing.T) {
 			} else {
 				t.Logf("DES3 OK, mode: %s, padding: %s\n", mode, p)
 			}
-			if mode.Not(MODE_CBC, MODE_ECB) {
+			if mode.Not(MODE_CBC, MODE_ECB, MODE_CFB) {
 				break
 			}
 		}

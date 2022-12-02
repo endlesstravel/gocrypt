@@ -58,7 +58,7 @@ func desEncrypt(src, key, iv []byte, block cipher.Block, mode BlockMode, scheme 
 	var plaintext []byte
 	var offset int
 
-	if mode.Has(MODE_CBC, MODE_ECB) {
+	if mode.Has(MODE_CBC, MODE_ECB, MODE_CFB) {
 		plaintext, err = Padding(scheme, src, des.BlockSize)
 		if err != nil {
 			return nil, err
@@ -146,7 +146,7 @@ func desDecrypt(src, key, iv []byte, block cipher.Block, mode BlockMode, scheme 
 		bm := ciphers.NewECBDecrypter(block)
 		bm.CryptBlocks(plaintext, ciphertext)
 	}
-	if mode.Has(MODE_CBC, MODE_ECB) {
+	if mode.Has(MODE_CBC, MODE_ECB, MODE_CFB) {
 		plaintext, err = UnPadding(scheme, plaintext, des.BlockSize)
 	}
 	return
